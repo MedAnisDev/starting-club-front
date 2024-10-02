@@ -1,0 +1,26 @@
+:root {
+    /* CSS HEX */
+    --night-rider: #080604;
+    --harlequin: #2bf92b;
+    --pomegranate: #f15912;
+    --saffron: #f5cc3e;
+    --jaffa: #f49333;
+    --rope: #8d5b1b;
+    --eunry: #cda295;
+    --terracotta: #e27758;
+    --totem-pole: #9e1b08;
+    --tia-maria: #d13710;
+  
+    /* SCSS RGB */
+    --night-rider-rgb: rgba(8, 6, 4, 1);
+    --harlequin-rgb: rgba(43, 249, 43, 1);
+    --pomegranate-rgb: rgba(241, 89, 18, 1);
+    --saffron-rgb: rgba(245, 204, 62, 1);
+    --jaffa-rgb: rgba(244, 147, 51, 1);
+    --rope-rgb: rgba(141, 91, 27, 1);
+    --eunry-rgb: rgba(205, 162, 149, 1);
+    --terracotta-rgb: rgba(226, 119, 88, 1);
+    --totem-pole-rgb: rgba(158, 27, 8, 1);
+    --tia-maria-rgb: rgba(209, 55, 16, 1);
+  }
+  

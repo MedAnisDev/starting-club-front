@@ -1,0 +1,72 @@
+/* athleteProfile.css */
+
+.athlete-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 40px auto;
+  }
+  
+  .athlete-details-container > h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #f39148;
+    margin-bottom: 10px;
+  }
+  
+  .athlete-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .athlete-details p {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .athlete-details p strong {
+    font-weight: 600;
+    color: #222;
+  }
+  
+  .athlete-details p:not(:last-child) {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+
+  .athlete-images-container{
+    display: flex;
+    gap: 1em;
+  }
+  .athlete-images-container img{
+    border-radius: 15px;
+  }
+  
+  @media (max-width: 768px) {
+    .athlete-details-container {
+      padding: 15px;
+    }
+  
+    h2 {
+      font-size: 2rem;
+    }
+  
+    .athlete-details p {
+      font-size: 1rem;
+    }
+  }
+
+  

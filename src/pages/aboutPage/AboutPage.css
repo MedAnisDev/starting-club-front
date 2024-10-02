@@ -1,0 +1,28 @@
+/* AboutPage.css */
+.about-page {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .about-page h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .about-page section {
+    margin-bottom: 30px;
+  }
+  
+  .about-page h3 {
+    font-size: 26px;
+    color: #ff6b6b;
+    margin-bottom: 15px;
+  }
+  
+  .about-page p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+  }
+  

@@ -1,0 +1,64 @@
+/* toolbar.css */
+
+.toolbar-conatiner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1em;
+  gap: 2em;
+  width: 100%;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  position: sticky;
+}
+
+.ant-select, .ant-pagination {
+  margin: 0;
+}
+
+/* Styling for the pagination */
+.ant-pagination {
+  display: flex;
+  align-items: center;
+}
+
+.ant-select {
+  width: 200px;
+}
+
+
+/* 
+
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.toolbar-content .ant-select {
+  width: 200px;
+}
+
+.toolbar-content .ant-pagination {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-content .ant-select {
+  margin-left: 16px;
+}
+
+*/
