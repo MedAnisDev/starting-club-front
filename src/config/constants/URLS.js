@@ -59,6 +59,14 @@ export const APIS ={
         updatePerformance:(performanceId) =>`/performance/${performanceId}`  ,
         getPerformanceByAthleteId: (athleteId) =>`/performance/${athleteId}`,
         deletePerformanceById: (performanceId) =>`/performance/${performanceId}`,
+    },
+    TRAININGSession: {
+        createTrainingSession:(performanceId) =>`/training_session/${performanceId}` ,
+        updateTrainingSession:(trainigSessionId) =>`/training_session/${trainigSessionId}`  ,
+        getAllTrainingSessions: (pageNumber) =>`/training_session/${pageNumber}`,
+        deleteTrainingSessionById: (trainigSessionId) =>`/training_session/${trainigSessionId}`,
+        deleteAllTrainingSessions: (performanceId) =>`/training_session/all/${performanceId}`,
+
     }
 
 }

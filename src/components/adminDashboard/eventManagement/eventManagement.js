@@ -165,7 +165,7 @@ const EventManagement = () => {
       });
       setEvents(events.filter((event) => event.id !== eventId));
     } catch (err) {
-      console.log("error fetch All Events Data   : ", err);
+      console.log("error handle Delete Event   : ", err);
     }
   };
 
