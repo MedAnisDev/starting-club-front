@@ -43,6 +43,7 @@ const AthleteDetailsDashboard = () => {
   const [isAddingPerformance, setIsAddingPerformance] = useState(false);
   const [isPerformanceExists, setIsPerformanceExists] = useState(false);
   const [performance, setPerformance] = useState({
+    id:"",
     federationNote: "",
     createdAT: null,
     updatedAT: null,
@@ -60,9 +61,6 @@ const AthleteDetailsDashboard = () => {
   });
 
   //trainingSession
-  const [trainingSession, setTrainingSession] = useState([]);
-  const [isAddingTrainingSession, setIsAddingTrainingSession] = useState(false);
-  const [isEditingSessionModal, setIsEditingSessionModal] = useState(false);
   const [currentSession, setCurrentSession] = useState({
     id: "",
     sessionNote: "",
@@ -72,6 +70,8 @@ const AthleteDetailsDashboard = () => {
     createdBy: "",
     updatedBy: "",
   });
+  const [isAddingTrainingSession, setIsAddingTrainingSession] = useState(false);
+  const [isEditingSessionModal, setIsEditingSessionModal] = useState(false);
 
   //Get Athlete  By Id
   const getAthleteByIdData = async (athleteId) => {
@@ -93,6 +93,17 @@ const AthleteDetailsDashboard = () => {
     handleCreatePerfromance(athleteId, jsonPerformance);
   };
 
+  const onCancelPerformanceModal = () => {
+    setIsAddingPerformance(false);
+    setPerformance({
+      federationNote: "",
+      createdAT: null,
+      updatedAT: null,
+      createdBy: null,
+      updatedBy: null,
+    });
+  };
+
   const handleCreatePerfromance = async (athleteId, jsonPerformance) => {
     try {
       const response = await createPerformance(athleteId, jsonPerformance);
@@ -112,6 +123,7 @@ const AthleteDetailsDashboard = () => {
       console.log("getPerformanceByAthleteIdData response ", response);
       response ? setIsPerformanceExists(true) : setIsPerformanceExists(false);
       setPerformance({
+        id: response.id,
         federationNote: response.federationNote,
         createdAT: response.createdAT,
         updatedAT: response.updatedAT,
@@ -200,6 +212,35 @@ const AthleteDetailsDashboard = () => {
     },
   ];
 
+  //CREATE training Session
+  const onOKAddTrainingSessionModal= ()=> {
+    const jsonTrainingSession = {
+      sessionNote : currentSession.sessionNote,
+      date : currentSession.date
+    }
+    handleCreateTrainingSession(jsonTrainingSession) ;
+  }
+
+  const handleCreateTrainingSession = (jsonTrainingSession)=> {
+    try{
+      console.log("performance id :",performance.id);
+      
+      const response = createTrainingSession(performance.id , jsonTrainingSession );
+      console.log("response of create TrainingSession :", response);
+      setCurrentSession(response) ;
+      setIsAddingTrainingSession(false);}
+    catch (err) {
+      console.log("error of create Performance : ", err);
+    }
+
+  }
+  
+  const onCancelTrainingSessionModal= ()=> {
+    setIsAddingTrainingSession(false) ;
+  }
+
+
+  //EDIT SESSION
   const handleEditSession = async (record) => {
     try {
       setCurrentSession({
@@ -217,6 +258,7 @@ const AthleteDetailsDashboard = () => {
     }
   };
 
+  //DELETE SESSION
   const handleDeleteTrainingSession = async (sessionId) => {
     try {
       const response = await deleteTrainingSessionById(sessionId);
@@ -225,9 +267,6 @@ const AthleteDetailsDashboard = () => {
         description: response,
         placement: "topRight",
       });
-      setTrainingSession(
-        trainingSession.filter((session) => session.id !== sessionId)
-      );
     } catch (err) {
       console.log("error handle Delete Session   : ", err);
     }
@@ -248,17 +287,6 @@ const AthleteDetailsDashboard = () => {
       year: "numeric",
       month: "2-digit",
       day: "2-digit"
-    });
-  };
-
-  const onCancelPerformanceModal = () => {
-    setIsAddingPerformance(false);
-    setPerformance({
-      federationNote: "",
-      createdAT: null,
-      updatedAT: null,
-      createdBy: null,
-      updatedBy: null,
     });
   };
 
@@ -345,6 +373,50 @@ const AthleteDetailsDashboard = () => {
               >
                 Add Training Session
               </Button>
+
+              <Modal
+                open={isAddingTrainingSession}
+                okText="Add"
+                cancelText="cancel"
+                onOk={() => onOKAddTrainingSessionModal()}
+                onCancel={() => onCancelTrainingSessionModal()}
+              >
+                <Form
+                  initialValues={{
+                    sessionNote: currentSession.sessionNote || "",
+                    date: currentSession.date || "",
+                  }}
+                  onValuesChange={(_, allValues) => {
+                    setCurrentSession((prevState) => ({ ...prevState, ...allValues }));
+                  }}
+                >   
+                  <Form.Item
+                    label="Training Session Note"
+                    name="sessionNote"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter Training Session Note!",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Enter Training Session Note" />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Date"
+                    name="date"
+                    rules={[{ required: true, message: "Please select the date!" }]}
+                  >
+                     <DatePicker
+                      showTime
+                      placeholder="Select event date and time"
+                      format="YYYY-MM-DD"
+                    />
+                  </Form.Item>
+                </Form>
+
+              </Modal>
 
               <Table
                 dataSource={performance.trainingSessionList}
