@@ -94,7 +94,7 @@ function EventsPage() {
           <Card
               key={index}
               hoverable
-              className="announcement-card"
+              className="card"
             >
               <h3>{event.title}</h3>
               <p>{event.date} - {event.location}</p>

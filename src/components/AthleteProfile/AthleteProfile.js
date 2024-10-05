@@ -3,6 +3,8 @@ import { useParams } from "react-router";
 import { getAthleteById } from "../../service/athlete/athlete.js";
 import { getAllFilesByAthlete } from "../../service/file/file.js";
 import FetchFiles from "../fileHandle/fetchFiles.js";
+
+import { Typography } from "antd";
 import "./athleteProfile.css";
 
 const AthleteProfile = () => {
@@ -27,9 +29,9 @@ const AthleteProfile = () => {
     <div className="athlete-details-container">
       {athlete ? (
         <>
-          <h2>
+          <Typography.Title>
             {athlete.firstname} {athlete.lastname}
-          </h2>
+          </Typography.Title>
           <div className="athlete-details">
             <p>
               <strong>Email:</strong> {athlete.email}
@@ -56,7 +58,7 @@ const AthleteProfile = () => {
             </p>
           </div>
 
-          <div className="athlete-images-container">
+          <div className="images-grid">
           <FetchFiles 
                 getSpecificFiles={getAllFilesByAthlete}
                 id={athleteId}

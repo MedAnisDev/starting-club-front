@@ -12,6 +12,7 @@ import {
   Typography,
   notification,
 } from "antd";
+import moment from "moment";
 
 import {
   getAthleteById,
@@ -27,6 +28,7 @@ import {
 import {
   createPerformance,
   getPerformanceByAthleteId,
+  updatePerformance
 } from "../../../service/perfromance/performance.js";
 import UploadCustomFile from "../../fileHandle/uploadCustomFile.js";
 import FetchFiles from "../../fileHandle/fetchFiles.js";
@@ -35,29 +37,33 @@ import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import "./athleteDetailsDashboard.css";
 
 const AthleteDetailsDashboard = () => {
+  const [reloadFlag , setReloadFlag] = useState(false);
   //athlete
   const { athleteId } = useParams();
   const [athlete, setAthlete] = useState({});
 
   //performance
   const [isAddingPerformance, setIsAddingPerformance] = useState(false);
+  const[isEditingPerformance,setIsEditinPerformance] = useState(false);
   const [isPerformanceExists, setIsPerformanceExists] = useState(false);
   const [performance, setPerformance] = useState({
-    id:"",
+    id: "",
     federationNote: "",
     createdAT: null,
     updatedAT: null,
     createdBy: null,
     updatedBy: null,
-    trainingSessionList :[{
-      id: "",
-      sessionNote: "",
-      date: "",
-      createdAt: "",
-      updatedAt: "",
-      createdBy: "",
-      updatedBy: "",
-    }]
+    trainingSessionList: [
+      {
+        id: "",
+        sessionNote: "",
+        date: "",
+        createdAt: "",
+        updatedAt: "",
+        createdBy: "",
+        updatedBy: "",
+      },
+    ],
   });
 
   //trainingSession
@@ -95,6 +101,7 @@ const AthleteDetailsDashboard = () => {
 
   const onCancelPerformanceModal = () => {
     setIsAddingPerformance(false);
+    setIsEditinPerformance(false);
     setPerformance({
       federationNote: "",
       createdAT: null,
@@ -111,11 +118,34 @@ const AthleteDetailsDashboard = () => {
       setPerformance(response);
       setIsAddingPerformance(false);
       setIsPerformanceExists(true);
+      setReloadFlag(!reloadFlag);
     } catch (err) {
       console.log("error of create Performance : ", err);
     }
   };
 
+  //EDit Performance
+  const onOKEditingPerformance= ()=> {
+    const jsonPerformance = {
+      federationNote: performance.federationNote,
+    };
+    handleEditPerformance(performance.id,jsonPerformance)
+  }
+
+  const handleEditPerformance = (performance , jsonPerformance)=>{
+    try {
+      const response = updatePerformance(performance, jsonPerformance);
+      console.log("response of edit Performance :", response);
+      setPerformance(response);
+      setIsAddingPerformance(false);
+      setIsEditinPerformance(false)
+      setIsPerformanceExists(true);
+      setReloadFlag(!reloadFlag);
+    } catch (err) {
+      console.log("error of edit Performance : ", err);
+    }
+
+  }
   //Get performance By Id Process
   const getPerformanceByAthleteIdData = async (athleteId) => {
     try {
@@ -129,7 +159,7 @@ const AthleteDetailsDashboard = () => {
         updatedAT: response.updatedAT,
         createdBy: response.createdBy,
         updatedBy: response.updatedBy,
-        trainingSessionList : response.trainingSessionList
+        trainingSessionList: response.trainingSessionList,
       });
     } catch (err) {
       console.log("getPerformanceByAthleteIdData error ", err);
@@ -213,32 +243,43 @@ const AthleteDetailsDashboard = () => {
   ];
 
   //CREATE training Session
-  const onOKAddTrainingSessionModal= ()=> {
+  const onOKAddTrainingSessionModal = () => {
     const jsonTrainingSession = {
-      sessionNote : currentSession.sessionNote,
-      date : currentSession.date
-    }
-    handleCreateTrainingSession(jsonTrainingSession) ;
-  }
+      sessionNote: currentSession.sessionNote,
+      date: currentSession.date,
+    };
+    handleCreateTrainingSession(jsonTrainingSession);
+  };
 
-  const handleCreateTrainingSession = (jsonTrainingSession)=> {
-    try{
-      console.log("performance id :",performance.id);
-      
-      const response = createTrainingSession(performance.id , jsonTrainingSession );
+  const handleCreateTrainingSession = (jsonTrainingSession) => {
+    try {
+      const response = createTrainingSession(
+        performance.id,
+        jsonTrainingSession
+      );
       console.log("response of create TrainingSession :", response);
-      setCurrentSession(response) ;
-      setIsAddingTrainingSession(false);}
-    catch (err) {
+      setCurrentSession(response);
+      setIsAddingTrainingSession(false);
+      setReloadFlag(!reloadFlag);
+
+    } catch (err) {
       console.log("error of create Performance : ", err);
     }
+  };
 
-  }
-  
-  const onCancelTrainingSessionModal= ()=> {
-    setIsAddingTrainingSession(false) ;
-  }
-
+  const onCancelTrainingSessionModal = () => {
+    setIsAddingTrainingSession(false);
+    setIsEditingSessionModal(false);
+    setCurrentSession({
+      id: null,
+      sessionNote: "",
+      date: null,
+      createdAt: null,
+      updatedAt: null,
+      createdBy: null,
+      updatedBy: null,
+    });
+  };
 
   //EDIT SESSION
   const handleEditSession = async (record) => {
@@ -258,6 +299,32 @@ const AthleteDetailsDashboard = () => {
     }
   };
 
+  const onOkEditTrainingSessionModal = () => {
+    const jsonTrainingSession = {
+      sessionNote: currentSession.sessionNote,
+      date: currentSession.date,
+    };
+    handleEditTrainingSession(jsonTrainingSession);
+  };
+
+  const handleEditTrainingSession = (jsonTrainingSession) => {
+    try {
+      console.log("performance id :", performance.id);
+
+      const response = updateTrainingSession(
+        currentSession.id,
+        jsonTrainingSession
+      );
+      console.log("response of edit Training Session :", response);
+      setCurrentSession(response);
+      setIsEditingSessionModal(false);
+      setReloadFlag(!reloadFlag);
+
+    } catch (err) {
+      console.log("error of edit Training Session : ", err);
+    }
+  };
+
   //DELETE SESSION
   const handleDeleteTrainingSession = async (sessionId) => {
     try {
@@ -267,6 +334,8 @@ const AthleteDetailsDashboard = () => {
         description: response,
         placement: "topRight",
       });
+      setReloadFlag(!reloadFlag);
+
     } catch (err) {
       console.log("error handle Delete Session   : ", err);
     }
@@ -286,7 +355,7 @@ const AthleteDetailsDashboard = () => {
     return new Date(date).toLocaleString("en-US", {
       year: "numeric",
       month: "2-digit",
-      day: "2-digit"
+      day: "2-digit",
     });
   };
 
@@ -294,77 +363,161 @@ const AthleteDetailsDashboard = () => {
   useEffect(() => {
     getAthleteByIdData(athleteId);
     getPerformanceByAthleteIdData(athleteId);
-  }, [athleteId , performance.trainingSessionList.length]);
+  }, [athleteId, reloadFlag]);
 
   return (
-    <div className="athlete-details-dashboard-container">
+    <>
       {athlete ? (
-        <>
-          <h2>
-            {athlete.firstname} {athlete.lastname}
-          </h2>
-          <div className="athlete-details">
-            <p>
-              <strong>Email:</strong> {athlete.email}
-            </p>
-            <p>
-              <strong>Phone Number:</strong> {athlete.phoneNumber}
-            </p>
-            <p>
-              <strong>Licence ID:</strong> {athlete.licenceID}
-            </p>
-            <p>
-              <strong>Date of Birth:</strong>{" "}
-              {new Date(athlete.dateOfBirth).toLocaleDateString()}
-            </p>
-            <p>
-              <strong>Branch:</strong> {athlete.branch}
-            </p>
-            <p>
-              <strong>Joined On:</strong>{" "}
-              {new Date(athlete.createdAt).toLocaleDateString()}
-            </p>
-            <p>
-              <strong>Medals:</strong> {athlete.hasMedal ? "Yes" : "No"}
-            </p>
-          </div>
-        </>
-      ) : (
-        <p>Athlete not found</p>
-      )}
-      {/** file uploading */}
-      <UploadCustomFile
-        uploadCustomFiles={ulploadFilesToAthlete}
-        id={athleteId}
-      />
-      <div className="athlete-images-container">
-        <FetchFiles getSpecificFiles={getAllFilesByAthlete} id={athleteId} />
-      </div>
-      {isPerformanceExists ? (
-        <div className="performance-container">
-            <div className="performance-content">
-              <h2>Performance Details</h2>
-              <p><strong>Federation Note:</strong> {performance.federationNote || "N/A"}</p>
-              <p><strong>Created At:</strong> {performance.createdAT ? formatDateTime(performance.createdAT) : "N/A"}</p>
-              <p><strong>Updated At:</strong> {performance.updatedAT ? formatDateTime(performance.updatedAT) : "N/A"}</p>
+        <div className="athlete-details-dashboard-container">
+          <>
+            <Typography.Title>
+              {athlete.firstname} {athlete.lastname}
+            </Typography.Title>
 
-              <p><strong>Created By:</strong> {
-                performance.createdBy ? (
-                    `${performance.createdBy?.firstname} ${performance.createdBy?.lastname }`
-                ) : (
-                    "Unknown"
-                )
-              }</p>
+            <div className="dashboard-details-container">
+              <>
+                <div className="athlete-details">
+                  <p>
+                    <strong>Email:</strong> {athlete.email}
+                  </p>
+                  <p>
+                    <strong>Phone Number:</strong> {athlete.phoneNumber}
+                  </p>
+                  <p>
+                    <strong>Licence ID:</strong> {athlete.licenceID}
+                  </p>
+                  <p>
+                    <strong>Date of Birth:</strong>{" "}
+                    {new Date(athlete.dateOfBirth).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Branch:</strong> {athlete.branch}
+                  </p>
+                  <p>
+                    <strong>Joined On:</strong>{" "}
+                    {new Date(athlete.createdAt).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Medals:</strong> {athlete.hasMedal ? "Yes" : "No"}
+                  </p>
+                </div>
+              </>
+              {isPerformanceExists ? (
+                <div className="performance-container">
+                  <Button
+                    type="primary"
+                    onClick={() => setIsEditinPerformance(true)}
+                    style={{maxWidth: 200 }}
+                  >
+                    Edit Performance
+                  </Button>
+                  <div className="athlete-details">
+                    <h2>Performance Details :</h2>
+                    <p>
+                      <strong>Federation Note:</strong>{" "} {performance.federationNote || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Created At:</strong>{" "} {performance.createdAT? formatDateTime(performance.createdAT): "N/A"}
+                    </p>
+                    <p>
+                      <strong>Updated At:</strong>{" "} {performance.updatedAT ? formatDateTime(performance.updatedAT): "N/A"}
+                    </p>
 
-              <p><strong>Updated By:</strong> {
-                performance.updatedBy ? (
-                    `${performance.updatedBy.firstname} ${performance.updatedBy.lastname}`
-                ) : (
-                    "Not Updated Yet"
-                )
-              }</p>
+                    <p>
+                      <strong>Created By:</strong>{" "}
+                      {performance.createdBy
+                        ? `${performance.createdBy?.firstname} ${performance.createdBy?.lastname}`
+                        : "Unknown"}
+                    </p>
+
+                    <p>
+                      <strong>Updated By:</strong>{" "}
+                      {performance.updatedBy
+                        ? `${performance.updatedBy.firstname} ${performance.updatedBy.lastname}`
+                        : "Not Updated Yet"}
+                    </p>
+                    
+                    <Modal
+                      open={isEditingPerformance}
+                      okText="Add"
+                      cancelText="cancel"
+                      onOk={() => onOKEditingPerformance()}
+                      onCancel={() => onCancelPerformanceModal()}
+                    >
+                      <Form
+                        initialValues={{
+                          federationNote: performance.federationNote || "",
+                        }}
+                        onValuesChange={(_, allValues) => {
+                          setPerformance((prevState) => ({
+                            ...prevState,
+                            ...allValues,
+                          }));
+                        }}
+                      >
+                        <Form.Item
+                          label="Federation Note"
+                          name="federationNote"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please enter the federation note!",
+                            },
+                          ]}
+                        >
+                          <Input placeholder="Enter federation note" />
+                        </Form.Item>
+                      </Form>
+                    </Modal>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <Button
+                    type="primary"
+                    onClick={() => setIsAddingPerformance(true)}
+                    style={{ marginBottom: 16, maxWidth: 200 }}
+                  >
+                    Add Performance
+                  </Button>
+
+                  <Modal
+                    open={isAddingPerformance}
+                    okText="Add"
+                    cancelText="cancel"
+                    onOk={() => onOKAddPerformanceModal()}
+                    onCancel={() => onCancelPerformanceModal()}
+                  >
+                    <Form
+                      initialValues={{
+                        federationNote: performance.federationNote || "",
+                      }}
+                      onValuesChange={(_, allValues) => {
+                        setPerformance((prevState) => ({
+                          ...prevState,
+                          ...allValues,
+                        }));
+                      }}
+                    >
+                      <Form.Item
+                        label="Federation Note"
+                        name="federationNote"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please enter the federation note!",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Enter federation note" />
+                      </Form.Item>
+                    </Form>
+                  </Modal>
+                </>
+              )}
             </div>
 
+            {/** TRAINING Session */}
             <div className="training-session-container">
               <Button
                 type="primary"
@@ -375,23 +528,32 @@ const AthleteDetailsDashboard = () => {
               </Button>
 
               <Modal
-                open={isAddingTrainingSession}
+                open={isAddingTrainingSession || isEditingSessionModal}
                 okText="Add"
                 cancelText="cancel"
-                onOk={() => onOKAddTrainingSessionModal()}
+                onOk={() => {
+                  isAddingTrainingSession
+                    ? onOKAddTrainingSessionModal()
+                    : onOkEditTrainingSessionModal();
+                }}
                 onCancel={() => onCancelTrainingSessionModal()}
               >
                 <Form
                   initialValues={{
                     sessionNote: currentSession.sessionNote || "",
-                    date: currentSession.date || "",
+                    date: currentSession.date
+                      ? moment(currentSession.date)
+                      : null,
                   }}
                   onValuesChange={(_, allValues) => {
-                    setCurrentSession((prevState) => ({ ...prevState, ...allValues }));
+                    setCurrentSession((prevState) => ({
+                      ...prevState,
+                      ...allValues,
+                    }));
                   }}
-                >   
+                >
                   <Form.Item
-                    label="Training Session Note"
+                    label="Session Note"
                     name="sessionNote"
                     rules={[
                       {
@@ -406,16 +568,17 @@ const AthleteDetailsDashboard = () => {
                   <Form.Item
                     label="Date"
                     name="date"
-                    rules={[{ required: true, message: "Please select the date!" }]}
+                    rules={[
+                      { required: true, message: "Please select the date!" },
+                    ]}
                   >
-                     <DatePicker
+                    <DatePicker
                       showTime
                       placeholder="Select event date and time"
                       format="YYYY-MM-DD"
                     />
                   </Form.Item>
                 </Form>
-
               </Modal>
 
               <Table
@@ -423,49 +586,26 @@ const AthleteDetailsDashboard = () => {
                 columns={sessionTableColumns}
               />
             </div>
+
+            {/** File uploading */}
+            <div className="athlete-upload-images-container">
+              <UploadCustomFile
+                uploadCustomFiles={ulploadFilesToAthlete}
+                id={athleteId}
+              />
+              <div className="images-grid">
+                <FetchFiles
+                  getSpecificFiles={getAllFilesByAthlete}
+                  id={athleteId}
+                />
+              </div>
+            </div>
+          </>
         </div>
       ) : (
-        <>
-          <Button
-            type="primary"
-            onClick={() => setIsAddingPerformance(true)}
-            style={{ marginBottom: 16, maxWidth: 200 }}
-          >
-            Add Performance
-          </Button>
-
-          <Modal
-            open={isAddingPerformance}
-            okText="Add"
-            cancelText="cancel"
-            onOk={() => onOKAddPerformanceModal()}
-            onCancel={() => onCancelPerformanceModal()}
-          >
-            <Form
-              initialValues={{
-                federationNote: performance.federationNote || "",
-              }}
-              onValuesChange={(_, allValues) => {
-                setPerformance((prevState) => ({ ...prevState, ...allValues }));
-              }}
-            >
-              <Form.Item
-                label="Federation Note"
-                name="federationNote"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter the federation note!",
-                  },
-                ]}
-              >
-                <Input placeholder="Enter federation note" />
-              </Form.Item>
-            </Form>
-          </Modal>
-        </>
+        <Typography.Text>No athlete data found</Typography.Text>
       )}
-    </div>
+    </>
   );
 };
 

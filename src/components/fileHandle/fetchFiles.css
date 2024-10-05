@@ -3,14 +3,17 @@
 	position: relative;
     cursor: pointer;
     transition: transform 0.3s ease ;
+	width: 200px; 
+  	height: 200px; /* with and heigh of an image is the same as the inline style in fecthFile.js*/
+  	overflow: hidden; 
 }
 
 .image-figure :hover img{
     transform: scale(1.1);
 }
 .image-figure:hover {
-	transform: scale(1.1); /* Scale up the image */
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a shadow effect */
+	transform: scale(1.1); 
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
   }
 .modal-image-container{
     position: fixed;
@@ -73,8 +76,8 @@
 
   .delete-button {
 	position: absolute;
-	top: 10px;    /* Position at the top */
-	left: 10px;   /* Position at the left */
+	top: 10px; 
+	left: 10px;
 	background-color: #ff6b6b;
 	opacity: 0.9;
 	padding-bottom:5px ;
