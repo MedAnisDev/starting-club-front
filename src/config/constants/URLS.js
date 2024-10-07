@@ -34,7 +34,7 @@ export const APIS ={
         assignNoteEventToAthlete : (athleteId , eventId, note) => `/event_performance/${athleteId}/${eventId}?note=${note}`, 
         fetchAllAthleteNoteByEventId :(eventId)=> `/event_performance/event/${eventId}`,
         fetchAllNotesByAthleteId : (athleteId)=> `/event_performance/athlete/${athleteId}`,
-        updateNoteEventOfAthlete :(athleteId , eventId)=> `/event_performance/${athleteId}/${eventId}`,
+        updateNoteEventOfAthlete :(athleteId , eventId , note)=> `/event_performance/${athleteId}/${eventId}?note=${note}`,
         deleteEventPerformance :(athleteId , eventId)=> `/event_performance/${athleteId}/${eventId}`,
     },
     ATHLETE :{

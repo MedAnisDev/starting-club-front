@@ -148,25 +148,17 @@ const AthleteManagement = () => {
         dataIndex: col.value,
         key: col.value,
         render: (value) =>
-          typeof value == "boolean" ? (value ? "Yes" : "No") : value, // for non-boolean values, display them directly
+          typeof value == "boolean" ? (value ? "Yes" : "No") : value,
       })),
     {
       title: "Actions",
       key: "actions",
       render: (_, record) => (
         <div className="icon-container">
-          <Button
-            icon={<EyeOutlined />}
-            onClick={() => handleViewDetails(record)}
-          />
-
-          <Button 
-            icon={<EditOutlined />} 
-            onClick={() => handleEdit(record)}
-          />
-
+          <Button icon={<EyeOutlined />} onClick={() => handleViewDetails(record)} />
+          <Button icon={<EditOutlined />} onClick={() => handleEdit(record)} />
           <Popconfirm
-            title="are sure you want to delete this athlete ?"
+            title="Are you sure you want to delete this athlete?"
             onConfirm={() => handleDelete(record.id)}
             onCancel={() =>
               notification.info({
@@ -179,10 +171,7 @@ const AthleteManagement = () => {
             cancelText="No"
             overlayClassName="vertical-popconfirm"
           >
-            <Button 
-              icon={<DeleteOutlined />}
-              danger
-            />
+            <Button icon={<DeleteOutlined />} danger />
           </Popconfirm>
         </div>
       ),
@@ -313,6 +302,7 @@ const AthleteManagement = () => {
     }
   };
 
+  //use Effect
   useEffect(() => {
     if (selectedColumns.length > 0) {
       fetchallCustomAthleteData(selectedColumns);
@@ -354,7 +344,7 @@ const AthleteManagement = () => {
 
       <Modal
         title="Edit Athlete"
-        visible={isEditModalVisible}
+        open={isEditModalVisible}
         onCancel={() => setIsEditModalVisible(false)}
         onOk={() => onOkEditModal()}
       >

@@ -38,8 +38,13 @@ export const isAthleteRegistered =(eventId , athleteId) =>{
 }
 
 export const deleteAthleteFromEvent = (eventId , athleteId) =>{
+    const token = localStorage.getItem("token");
     return fetch({
         method : "delete" ,
         url : BaseUrl+APIS.EVENTREGISTRATION.deleteAthleteFromEvent(eventId , athleteId) ,
+        headers : {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     });
 }

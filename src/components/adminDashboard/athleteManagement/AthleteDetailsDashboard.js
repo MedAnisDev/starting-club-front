@@ -283,7 +283,6 @@ const AthleteDetailsDashboard = () => {
 
   //EDIT SESSION
   const handleEditSession = async (record) => {
-    try {
       setCurrentSession({
         id: record.id,
         sessionNote: record.sessionNote,
@@ -294,9 +293,6 @@ const AthleteDetailsDashboard = () => {
         updatedBy: record.updatedBy,
       });
       setIsEditingSessionModal(true);
-    } catch (err) {
-      console.log("error handle Delete Session   : ", err);
-    }
   };
 
   const onOkEditTrainingSessionModal = () => {
@@ -309,8 +305,6 @@ const AthleteDetailsDashboard = () => {
 
   const handleEditTrainingSession = (jsonTrainingSession) => {
     try {
-      console.log("performance id :", performance.id);
-
       const response = updateTrainingSession(
         currentSession.id,
         jsonTrainingSession

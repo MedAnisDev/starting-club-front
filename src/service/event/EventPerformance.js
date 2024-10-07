@@ -24,10 +24,11 @@ export const fetchAllNotesByAthleteId = (athleteId) =>{
     });
 }
 
-export const updateNoteEventOfAthlete = (athleteId , eventId) =>{
+export const updateNoteEventOfAthlete = (athleteId , eventId  ,note) =>{
     return fetch({
         method : "put" ,
-        url : BaseUrl+APIS.EVENTPERFORMANCE.updateNoteEventOfAthlete(athleteId , eventId) ,
+        url : BaseUrl+APIS.EVENTPERFORMANCE.updateNoteEventOfAthlete(athleteId , eventId , note) ,
+        
     });
 }
 
