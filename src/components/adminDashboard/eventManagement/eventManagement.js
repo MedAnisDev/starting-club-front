@@ -306,6 +306,7 @@ const EventManagement = () => {
       <Table
         columns={tableColumns}
         dataSource={events}
+        pagination={{ pageSize: 5 }}
         rowKey={(row) => row.id}
       />
 

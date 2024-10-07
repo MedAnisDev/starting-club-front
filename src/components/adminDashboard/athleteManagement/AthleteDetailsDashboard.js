@@ -513,6 +513,7 @@ const AthleteDetailsDashboard = () => {
 
             {/** TRAINING Session */}
             <div className="training-session-container">
+              <h2 className='title'> Training Session</h2>
               <Button
                 type="primary"
                 onClick={() => setIsAddingTrainingSession(true)}
@@ -578,11 +579,13 @@ const AthleteDetailsDashboard = () => {
               <Table
                 dataSource={performance.trainingSessionList}
                 columns={sessionTableColumns}
+                pagination={{ pageSize: 5 }}
+                rowKey={(row) => row.id}
               />
             </div>
 
             {/** File uploading */}
-            <div className="athlete-upload-images-container">
+            <div className="upload-images-dashboard-container">
               <UploadCustomFile
                 uploadCustomFiles={ulploadFilesToAthlete}
                 id={athleteId}

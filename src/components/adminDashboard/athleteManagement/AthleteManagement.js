@@ -333,6 +333,7 @@ const AthleteManagement = () => {
           <Table
             dataSource={athletes}
             columns={tableColumns}
+            pagination={{ pageSize: 5 }}
             rowKey={(row) => row.id}
             scroll={{ x: "max-content" }}
             style={{borderRadius:"10px"}}

@@ -374,18 +374,17 @@ const EventDetailsDashboard = () => {
   return (
     <div className="event-details-dashboard-container">
 
-      <div className="event-header">
-        <h3>{event.title}</h3>
-        <h3>
-          {event.date} - {event.location}
-        </h3>
-        <p>{event.type}</p>
+      <div className="athlete-details">
+        <p> <strong>Event Title:</strong> {event.title} </p>
+        <p> <strong>Date:</strong> {event.date} </p>
+        <p> <strong>Location:</strong> {event.location} </p>
+        <p> <strong>Type:</strong> {event.type} </p>
       </div>
 
-      <div className="participant-section">
+      <div className="participant-container-dashboard">
         {currentDate.isAfter(currentEventDate) ? (
           <>
-            <h2>All Participant Notes of This Event</h2>
+            <h2 className='title'>All Participant Notes of This Event</h2>
             {participantsEventPerformance.length >= 0 ? (
              <>
              <Table 
@@ -432,13 +431,14 @@ const EventDetailsDashboard = () => {
           </>
         ) : (
           <>
-            <h2>All Athlete Registrations of This Event</h2>
+            <h2 className='title'>All Athlete Registrations of This Event</h2>
             {registeredAthletes.length >= 0 ? (
               <>
                  <Table 
                   dataSource={registeredAthletes}
                   columns={registeredAthletesColumns}
                   pagination={{ pageSize: 5 }}
+                  rowKey={(row) => row.id}
                   />
               </>
             ) : (
@@ -452,13 +452,14 @@ const EventDetailsDashboard = () => {
         )}
       </div>
       
-      <div className='event-upload-images-container'>
+      {/** File uploading */}
+      <div className='upload-images-dashboard-container'>
         <UploadCustomFile 
           uploadCustomFiles={ulploadFilesToEvent}
           id={eventId}
         />
 
-        <div className='event-images-container'>
+        <div className='images-grid'>
         <FetchFiles 
           getSpecificFiles={getAllFilesByEvent}
           id={eventId}
