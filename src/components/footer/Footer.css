@@ -1,41 +1,40 @@
 
 
 .footer-links {
-  margin-bottom: 10px;  /* Spacing between links and the social media section */
+  margin-bottom: 10px;  
 }
 
 .footer-links a {
-  text-decoration: none;  /* Remove underline from links */
-  margin: 0 10px;  /* Horizontal spacing between links */
-  font-size: 14px;  /* Font size for links */
-  transition: color 0.3s ease;  /* Smooth transition when hovering */
+  text-decoration: none;  
+  margin: 0 10px;  
+  font-size: 14px;    
+  transition: color 0.3s ease;  
 }
 
 .footer-links a:hover {
-  color: #e0a80d;  /* Highlight link on hover */
+  color: #e0a80d;   
 }
 
 .footer-social {
   display: flex;
-  justify-content: center;  /* Center the social icons */
-  gap: 15px;  /* Spacing between icons */
+  justify-content: center;  
+  gap: 15px;  
 }
-
 .footer-social a {
-  font-size: 20px;  /* Larger size for icons */
+  font-size: 20px;  
   transition: color 0.3s ease;
 }
 
 .footer-social a:hover {
-  color: #e0a80d;  /* Change color on hover */
+  color: #e0a80d;  
 }
 
 .footer-text {
-  margin-top: 15px;  /* Space above the footer text */
-  font-size: 12px;
-    /* Lighter color for additional info */
+  margin-top: 15px; 
+  font-size: 18px;
+    
 }
 
 .footer-text span {
-  font-weight:700;  /* Highlight certain text */
+  font-weight:700;  
 }

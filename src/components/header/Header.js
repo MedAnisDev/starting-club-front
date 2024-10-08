@@ -6,6 +6,7 @@ import { useSelector , useDispatch } from "react-redux";
 import { AuthAction } from '../../redux/actions';
 import { logoutService } from '../../service/auth/Auth';
 import { InfoCircleOutlined } from "@ant-design/icons";
+import { Starting } from "../../assets/index.js";
 
 import "./Header.css";
 
@@ -50,20 +51,26 @@ function Header() {
     };
   };
 
+  const onLogoClick =()=> {
+    navigate('/home')
+  }
+
   
 
   return (
     <div className="header">
-      <h2 className="header-left"> Club d'Athlétisme</h2>
+      {/**<img src={Starting} width="200px" height="100px"  onClick={()=>onLogoClick()}/> */}
+      <h2 className="header-left"> Starting Club</h2>
       
       
       <div className="header-right">
         <nav>
           <ul>
             {!isAuthenticated ? (
-              <li><Link className='navlinks' to='/'>Home</Link></li>
+              <li><Link className='navlinks' to='/home'>Home</Link></li>
             ) : (
               <>
+                <li><Link className='navlinks' to='/home'>Home</Link></li>
                 <li><Link className='navlinks' to='/about'>À Propos</Link></li>
                 <li><Link className='navlinks' to='/president-message'>Mot du Président</Link></li>
                 <li><Link className='navlinks' to='/athletes'>Athlètes</Link></li>

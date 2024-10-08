@@ -98,12 +98,8 @@ const App = () => {
             <Route path="/dashboard/event-details/:eventId" element={<EventDetailsDashboard />} />
             {/* route for non authenticated users */}
             <Route
-              path="/"
-              element={
-                <PublicRoute>
-                  <HomePage />
-                </PublicRoute>
-              }
+              path="/home"
+              element={<HomePage />}
             />
           </Routes>
           </div>       
