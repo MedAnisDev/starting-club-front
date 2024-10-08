@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './HomePage.css';
-import { bechir, affiche, ppl, Starting, run, course } from "../../assets/index";
+import {affiche, Starting, run, course, delice, mosaique, safia } from "../../assets/index";
 import 'slick-carousel/slick/slick.css'; 
 import 'slick-carousel/slick/slick-theme.css'; 
 import Slider from 'react-slick';
+import { Card, Col, Row } from 'antd';  // Import Ant Design components
 
 function HomePage() {
   const [scrolling, setScrolling] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolling(window.scrollY > 100); // Adjust the scroll position as needed
+      setScrolling(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -24,19 +25,19 @@ function HomePage() {
   ];
 
   const partners = [
-    { src: affiche, alt: 'Partner 1' },
-    { src: ppl, alt: 'Partner 2' },
-    { src: bechir, alt: 'Partner 3' },
+    { src: delice, alt: 'Partner 1' },
+    { src: mosaique, alt: 'Partner 2' },
+    { src: safia, alt: 'Partner 3' },
   ];
 
   const settings = {
     dots: true,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 3000, // 3 seconds for each slide
+    autoplaySpeed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    speed: 1000, // Speed of the sliding transition
+    speed: 1000,
   };
 
   return (
@@ -66,40 +67,40 @@ function HomePage() {
         </Slider>
       </section>
 
-      {/* Quick Overview Section */}
+      {/* Upgraded Quick Overview Section with Ant Design */}
       <section className="quick-overview">
         <h2>Aperçu Rapide</h2>
-        <div className="overview-cards">
-          {/* Latest News */}
-          <div className="overview-card">
-            <h3>Dernières Nouvelles</h3>
-            <ul>
-              <li>Championnat Régional: 10 septembre 2024</li>
-              <li>Nouvelle saison d'entraînement: Inscriptions ouvertes</li>
-              <li>Résultats des compétitions nationales</li>
-            </ul>
-          </div>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={8}>
+            <Card title="Dernières Nouvelles" bordered={false}>
+              <ul>
+                <li>Championnat Régional: 10 septembre 2024</li>
+                <li>Nouvelle saison d'entraînement: Inscriptions ouvertes</li>
+                <li>Résultats des compétitions nationales</li>
+              </ul>
+            </Card>
+          </Col>
 
-          {/* Upcoming Events */}
-          <div className="overview-card">
-            <h3>Événements À Venir</h3>
-            <ul>
-              <li>Course sur route - 15 octobre 2024</li>
-              <li>Compétition junior - 25 octobre 2024</li>
-              <li>Marathon de Nabeul - 5 novembre 2024</li>
-            </ul>
-          </div>
+          <Col xs={24} sm={12} md={8}>
+            <Card title="Événements À Venir" bordered={false}>
+              <ul>
+                <li>Course sur route - 15 octobre 2024</li>
+                <li>Compétition junior - 25 octobre 2024</li>
+                <li>Marathon de Nabeul - 5 novembre 2024</li>
+              </ul>
+            </Card>
+          </Col>
 
-          {/* Important Messages */}
-          <div className="overview-card">
-            <h3>Messages Importants</h3>
-            <ul>
-              <li>Réunion du conseil: 1er septembre 2024</li>
-              <li>Rappel: Respect des mesures sanitaires</li>
-              <li>Nouvelle charte du club publiée</li>
-            </ul>
-          </div>
-        </div>
+          <Col xs={24} sm={12} md={8}>
+            <Card title="Messages Importants" bordered={false}>
+              <ul>
+                <li>Réunion du conseil: 1er septembre 2024</li>
+                <li>Rappel: Respect des mesures sanitaires</li>
+                <li>Nouvelle charte du club publiée</li>
+              </ul>
+            </Card>
+          </Col>
+        </Row>
       </section>
 
       {/* Partners Section */}

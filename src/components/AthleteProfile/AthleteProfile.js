@@ -32,7 +32,7 @@ const AthleteProfile = () => {
           <h1 className="title">
             {athlete.firstname} {athlete.lastname}
           </h1>
-          <div className="public-details">
+          <div className="athlete-details">
             <p>
               <strong>Email:</strong> {athlete.email}
             </p>

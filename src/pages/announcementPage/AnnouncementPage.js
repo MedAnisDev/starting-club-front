@@ -88,6 +88,7 @@ function AnnouncementPage() {
               hoverable
             >
               <h3 className="title">{announcement.title}</h3>
+
               <p 
               className="card-description ellipsis-tooltip" 
               onClick={()=>showModal(announcement.content)}
