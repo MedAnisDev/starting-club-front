@@ -15,8 +15,8 @@ function GalleryPage() {
   };
 
   return (
-    <div className="gallery-page">
-      <h2>Galerie</h2>
+    <div className="public-page-container">
+      <h2 className='title'>Galerie</h2>
       <div className="gallery">
         <figure className='gallery__thumb' onClick={() => handleImageClick(bechir)}>
           <img src={bechir} alt="Galerie 1" />

@@ -10,7 +10,6 @@ import {
   AthletePage,
   EventsPage,
   GalleryPage,
-  MembershipPage,
   PartnersPage,
   ContactPage,
   AnnouncementPage,
@@ -85,7 +84,6 @@ const App = () => {
             <Route path="/event-details/:eventId" element={<EventDetails />} />
             <Route path="/athlete-profile/:athleteId" element={<AthleteProfile />} />
             <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/membership" element={<MembershipPage />} />
             <Route path="/partners" element={<PartnersPage />} />
             <Route path="/contact" element={<ContactPage />} />
 

@@ -6,13 +6,13 @@ import FetchDocumentFiles from "../../fileHandle/fetchDocumentFile.js";
 import "./administrativeDocument.css"
 const AdministrativeDocument = () => {
   return (
-    <div className="admin-document-container">
-      <h2>Administrative Document</h2>
+    <div className="upload-images-dashboard-container" id="admin-document-conatainer">
+      <h2 className="title">Administrative Document</h2>
       <UploadCustomFile
         uploadCustomFiles={uploadMultipleFiles}
       />
 
-       <div className="images-container">
+       <div className="images-grid" id="admin-document">
         <FetchDocumentFiles
          getSpecificFiles ={getAllDocumentFiles}
          deleteFileById={deleteFileById}

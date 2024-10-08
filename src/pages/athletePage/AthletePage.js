@@ -4,6 +4,8 @@ import { notification, Button, Card } from "antd";
 import {getAllAthletes , getAthleteById} from "../../service/athlete/athlete";
 import { useNavigate } from 'react-router';
 import Toolbar from '../../components/toolbar/Toolbar';
+
+import { noData } from '../../assets';
 import './AthletePage.css';
 
 const AthletePage = () => {
@@ -47,7 +49,8 @@ const AthletePage = () => {
   },[pageNumber ,sortedBy]);
 
   return (
-    <div className='athlete-container'>
+    <div className='public-page-container'>
+      <h2 className="title">Athlètes</h2>
       <Toolbar 
          pageNumber={pageNumber}
          onPageNumberChange={onPageNumberChange}
@@ -55,24 +58,28 @@ const AthletePage = () => {
          onSortedByChange={onSortedByChange}
          columns = {sortedByColumns}
       />
-      {athletes.length>0 ?(
-        athletes.map((athlete , index)=>(
-          <Card
-          key={index}
-          hoverable
-          className="athlete-card"
-          >
-           <h3>{athlete.firstname} - {athlete.lastname}</h3>
-            <p>{athlete.dateOfBirth}</p>
-            <p>{athlete.phoneNumber}</p>
-            <p>{athlete.hasMedal? "has medal":"has no medals yet"}</p>
-            <Button type="primary" onClick={() => handleSeeAllButtonClick(athlete.id)}>Lire plus</Button>
-          </Card>
-        ))
-      ):(
-        <p>there is no atholetes yet !</p>
-      )
-      }
+
+      <div className="card-container" >
+        {athletes.length>0 ?(
+          athletes.map((athlete , index)=>(
+            <Card
+            key={index}
+            hoverable
+            >
+             <h3>{athlete.firstname} - {athlete.lastname}</h3>
+              <p>{athlete.dateOfBirth}</p>
+              <p>{athlete.phoneNumber}</p>
+              <p>{athlete.hasMedal? "has medal":"has no medals yet"}</p>
+              <Button type="primary" onClick={() => handleSeeAllButtonClick(athlete.id)}>Lire plus</Button>
+            </Card>
+          ))
+        ):(
+          <div className="noData-container">
+            <img src={noData} className="noData" />
+          </div>
+        )
+        }
+      </div>
     </div>
   );
 };

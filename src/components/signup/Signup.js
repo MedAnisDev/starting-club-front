@@ -5,6 +5,7 @@ import React from "react";
 import { registerService } from "../../service/auth/Auth";
 import '../login/auth.css';
 import { Starting } from "../../assets/index";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
@@ -32,7 +33,17 @@ const Signup = () => {
     try {
       console.log('Signup Data:', data);
       await registerService(data);
-      notification.info({ message: 'Please check your email for verification.', placement: 'topRight', duration: 20 });
+      notification.info({
+        message: 'Signup Successful!',
+        description: 'Please check your email for verification instructions.',
+        placement: 'topRight',
+        duration: 10,
+        style: {
+          width: 300,
+          borderRadius: '10px',
+        },
+        icon: <InfoCircleOutlined style={{ color: "#1890ff" }} />, 
+      });
     } catch (err) {
       message.error('Sign up failed. Please try again.');
     }

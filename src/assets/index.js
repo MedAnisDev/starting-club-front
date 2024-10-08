@@ -10,3 +10,4 @@ export {default as rajel} from './images/rajel.jpg';
 export {default as run} from './images/run.jpg';
 export {default as logo} from './images/logo.jpg';
 export {default as Starting} from './images/STARTING PSD 3.png';
+export {default as noData} from './images/no-data.png';

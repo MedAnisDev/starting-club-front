@@ -1,38 +1,46 @@
-/* EventsPage.css */
-.events-page {
+.public-page-container {
     padding: 40px 20px;
+    width: 100%;
+    height: auto;
   }
   
-  .events-page h2 {
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-  
-  .events-page .event-calendar {
+  .public-page-container .card-container {
+    width: 90%;
+    height: auto;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  
-  .events-page .event {
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+    margin: 0 auto;
+    padding: 20px;
+
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
     text-align: center;
   }
-  
-  .events-page .event h3 {
+
+  .public-page-container .card-container h3 {
     font-size: 24px;
-    color: #ff6b6b;
+    color: #f49333;
     margin-bottom: 15px;
   }
   
-  .events-page .event p {
+  .public-page-container .card-container p {
     font-size: 16px;
     color: #555;
     line-height: 1.6;
+  }
+
+  .public-page-container h2{
+    font-size: 32px !important;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
   }
   

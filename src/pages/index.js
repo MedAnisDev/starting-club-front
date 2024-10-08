@@ -7,5 +7,4 @@ export {default as GalleryPage} from "./galleryPage/GalleryPage";
 export {default as HomePage} from "./homePage/HomePage";
 export {default as AnnouncementPage} from "./announcementPage/AnnouncementPage";
 export {default as PresidentMessagePage} from "./presidentMessagePage/PresidentMessagePage";
-export {default as MembershipPage} from "./membershipPage/MembershipPage";
 export {default as PartnersPage} from "./partnersPage/PartnersPage";

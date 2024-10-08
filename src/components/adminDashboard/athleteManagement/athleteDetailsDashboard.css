@@ -78,3 +78,21 @@
   grid-gap: 6em;
   margin-top: 1em;
 }
+
+.noData-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 100%;            
+  width: 100%;             
+}
+
+.noData {
+  max-width: 100px;         /* Adjust the size of the image */
+  height: auto;
+}
+
+.noData:hover {
+  opacity: 1; 
+  transform: scale(1.05);
+}

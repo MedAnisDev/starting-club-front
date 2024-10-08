@@ -1,12 +1,6 @@
 /* eventDetails.css */
-.event-details-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 2em;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2em;
+.public-details-container {
+    width: 80%;
   }
   
   .event-header {
@@ -38,7 +32,7 @@
   
   .participant-section h2 {
     color: #333;
-    border-bottom: 2px solid #1890ff;
+    border-bottom: 2px solid #1DA57A;
     padding-bottom: 10px;
     margin-bottom: 20px;
   }
@@ -56,7 +50,7 @@
   }
   
   .participant-table th {
-    background-color: #1890ff;
+    background-color: #1DA57A;
     color: #fff;
   }
   

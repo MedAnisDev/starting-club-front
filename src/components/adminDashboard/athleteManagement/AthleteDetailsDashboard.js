@@ -28,23 +28,24 @@ import {
 import {
   createPerformance,
   getPerformanceByAthleteId,
-  updatePerformance
+  updatePerformance,
 } from "../../../service/perfromance/performance.js";
 import UploadCustomFile from "../../fileHandle/uploadCustomFile.js";
 import FetchFiles from "../../fileHandle/fetchFiles.js";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 
+import { noData } from "../../../assets/index.js";
 import "./athleteDetailsDashboard.css";
 
 const AthleteDetailsDashboard = () => {
-  const [reloadFlag , setReloadFlag] = useState(false);
+  const [reloadFlag, setReloadFlag] = useState(false);
   //athlete
   const { athleteId } = useParams();
   const [athlete, setAthlete] = useState({});
 
   //performance
   const [isAddingPerformance, setIsAddingPerformance] = useState(false);
-  const[isEditingPerformance,setIsEditinPerformance] = useState(false);
+  const [isEditingPerformance, setIsEditinPerformance] = useState(false);
   const [isPerformanceExists, setIsPerformanceExists] = useState(false);
   const [performance, setPerformance] = useState({
     id: "",
@@ -125,27 +126,26 @@ const AthleteDetailsDashboard = () => {
   };
 
   //EDit Performance
-  const onOKEditingPerformance= ()=> {
+  const onOKEditingPerformance = () => {
     const jsonPerformance = {
       federationNote: performance.federationNote,
     };
-    handleEditPerformance(performance.id,jsonPerformance)
-  }
+    handleEditPerformance(performance.id, jsonPerformance);
+  };
 
-  const handleEditPerformance = (performance , jsonPerformance)=>{
+  const handleEditPerformance = (performance, jsonPerformance) => {
     try {
       const response = updatePerformance(performance, jsonPerformance);
       console.log("response of edit Performance :", response);
       setPerformance(response);
       setIsAddingPerformance(false);
-      setIsEditinPerformance(false)
+      setIsEditinPerformance(false);
       setIsPerformanceExists(true);
       setReloadFlag(!reloadFlag);
     } catch (err) {
       console.log("error of edit Performance : ", err);
     }
-
-  }
+  };
   //Get performance By Id Process
   const getPerformanceByAthleteIdData = async (athleteId) => {
     try {
@@ -261,7 +261,6 @@ const AthleteDetailsDashboard = () => {
       setCurrentSession(response);
       setIsAddingTrainingSession(false);
       setReloadFlag(!reloadFlag);
-
     } catch (err) {
       console.log("error of create Performance : ", err);
     }
@@ -283,16 +282,16 @@ const AthleteDetailsDashboard = () => {
 
   //EDIT SESSION
   const handleEditSession = async (record) => {
-      setCurrentSession({
-        id: record.id,
-        sessionNote: record.sessionNote,
-        date: record.date,
-        createdAt: record.createdAt,
-        updatedAt: record.updatedAt,
-        createdBy: record.createdBy,
-        updatedBy: record.updatedBy,
-      });
-      setIsEditingSessionModal(true);
+    setCurrentSession({
+      id: record.id,
+      sessionNote: record.sessionNote,
+      date: record.date,
+      createdAt: record.createdAt,
+      updatedAt: record.updatedAt,
+      createdBy: record.createdBy,
+      updatedBy: record.updatedBy,
+    });
+    setIsEditingSessionModal(true);
   };
 
   const onOkEditTrainingSessionModal = () => {
@@ -313,7 +312,6 @@ const AthleteDetailsDashboard = () => {
       setCurrentSession(response);
       setIsEditingSessionModal(false);
       setReloadFlag(!reloadFlag);
-
     } catch (err) {
       console.log("error of edit Training Session : ", err);
     }
@@ -329,21 +327,21 @@ const AthleteDetailsDashboard = () => {
         placement: "topRight",
       });
       setReloadFlag(!reloadFlag);
-
     } catch (err) {
       console.log("error handle Delete Session   : ", err);
     }
   };
 
   const formatDateTime = (date) => {
-    return new Date(date).toLocaleString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    // Check for valid date
+    const formattedDate = moment(date);
+    if (!formattedDate.isValid()) {
+      return "Invalid Date"; // Fallback in case of a parsing issue
+    }
+  
+    return formattedDate.format("MM/DD/YYYY HH:mm"); // Adjust the format as needed
   };
+  
 
   const formatDate = (date) => {
     return new Date(date).toLocaleString("en-US", {
@@ -401,20 +399,27 @@ const AthleteDetailsDashboard = () => {
                   <Button
                     type="primary"
                     onClick={() => setIsEditinPerformance(true)}
-                    style={{maxWidth: 200 }}
+                    style={{ maxWidth: 200 }}
                   >
                     Edit Performance
                   </Button>
                   <div className="athlete-details">
                     <h2>Performance Details :</h2>
                     <p>
-                      <strong>Federation Note:</strong>{" "} {performance.federationNote || "N/A"}
+                      <strong>Federation Note:</strong>{" "}
+                      {performance.federationNote || "N/A"}
                     </p>
                     <p>
-                      <strong>Created At:</strong>{" "} {performance.createdAT? formatDateTime(performance.createdAT): "N/A"}
+                      <strong>Created At:</strong>{" "}
+                      {performance.createdAT
+                        ? formatDateTime(performance.createdAT)
+                        : "N/A"}
                     </p>
                     <p>
-                      <strong>Updated At:</strong>{" "} {performance.updatedAT ? formatDateTime(performance.updatedAT): "N/A"}
+                      <strong>Updated At:</strong>{" "}
+                      {performance.updatedAT
+                        ? formatDateTime(performance.updatedAT)
+                        : "N/A"}
                     </p>
 
                     <p>
@@ -430,7 +435,7 @@ const AthleteDetailsDashboard = () => {
                         ? `${performance.updatedBy.firstname} ${performance.updatedBy.lastname}`
                         : "Not Updated Yet"}
                     </p>
-                    
+
                     <Modal
                       open={isEditingPerformance}
                       okText="Add"
@@ -513,7 +518,7 @@ const AthleteDetailsDashboard = () => {
 
             {/** TRAINING Session */}
             <div className="training-session-container">
-              <h2 className='title'> Training Session</h2>
+              <h2 className="title"> Training Session</h2>
               <Button
                 type="primary"
                 onClick={() => setIsAddingTrainingSession(true)}
@@ -600,7 +605,9 @@ const AthleteDetailsDashboard = () => {
           </>
         </div>
       ) : (
-        <Typography.Text>No athlete data found</Typography.Text>
+        <div className="noData-container">
+          <img src={noData} className="noData" />
+        </div>
       )}
     </>
   );

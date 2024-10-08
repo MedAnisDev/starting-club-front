@@ -224,7 +224,7 @@ const AnnouncementManagement = () => {
                 dataSource={announcements}
                 columns={columns}
                 rowKey={(row) => row.id}
-                pagination={{pagination}}
+                pagination={{ pageSize: 5 }}
                 onChange={(pagination)=> handleTableChange(pagination)}
             />
 

@@ -12,19 +12,16 @@ import {  DeleteOutlined  ,PlusCircleOutlined , EditOutlined} from "@ant-design/
 import { Table ,
   Button,
   Form,
-  DatePicker,
   Input,
   Modal,
   Popconfirm,
-  Select,
-  Typography,
   notification,} from 'antd';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import "./eventDetailsDashboard.css";
-import { render } from '@testing-library/react';
 
+import { noData } from '../../../assets/index.js';
+import "./eventDetailsDashboard.css";
 
 const EventDetailsDashboard = () => {
     const {eventId} = useParams();
@@ -426,7 +423,10 @@ const EventDetailsDashboard = () => {
                 </Modal>
               </>
             ) : (
-              <p className="no-participants">No participant notes found.</p>
+              <div className="noData-container">
+                <img src={noData} className="noData" />
+              </div>
+
             )}
           </>
         ) : (
@@ -442,11 +442,9 @@ const EventDetailsDashboard = () => {
                   />
               </>
             ) : (
-              <>
-                <p className="no-participants">
-                  there is no registrations yet.
-                </p>
-              </>
+              <div className="noData-container">
+                <img src={noData} className="noData" />
+              </div>
             )}
           </>
         )}
@@ -454,7 +452,7 @@ const EventDetailsDashboard = () => {
       
       {/** File uploading */}
       <div className='upload-images-dashboard-container'>
-        <UploadCustomFile 
+        <UploadCustomFile  
           uploadCustomFiles={ulploadFilesToEvent}
           id={eventId}
         />

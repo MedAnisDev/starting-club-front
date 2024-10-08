@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { downloadFile , deleteFileById } from "../../service/file/file.js";
+import { downloadFile, deleteFileById } from "../../service/file/file.js";
 import { useLocation } from "react-router";
+
+import { noData } from "../../assets/index.js";
 import "./fetchFiles.css";
 
 const FetchFiles = ({ getSpecificFiles, id }) => {
@@ -53,8 +55,7 @@ const FetchFiles = ({ getSpecificFiles, id }) => {
     <>
       {imageUrlList.length > 0 ? (
         imageUrlList.map((item, index) => (
-          <figure
-            className="image-figure">
+          <figure className="image-figure">
             {isAdminPath && (
               <span className="delete-button" onClick={() => onDelete(item.id)}>
                 &times;
@@ -70,7 +71,9 @@ const FetchFiles = ({ getSpecificFiles, id }) => {
           </figure>
         ))
       ) : (
-        <p>No images available</p>
+        <div className="noData-container">
+          <img src={noData} className="noData" />
+        </div>
       )}
       {selectedImage && (
         <div className="modal-image-container" onClick={handleCloseModal}>

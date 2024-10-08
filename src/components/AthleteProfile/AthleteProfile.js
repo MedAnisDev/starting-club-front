@@ -26,13 +26,13 @@ const AthleteProfile = () => {
   }, [athleteId]);
 
   return (
-    <div className="athlete-details-container">
+    <div className="public-details-container">
       {athlete ? (
         <>
-          <Typography.Title>
+          <h1 className="title">
             {athlete.firstname} {athlete.lastname}
-          </Typography.Title>
-          <div className="athlete-details">
+          </h1>
+          <div className="public-details">
             <p>
               <strong>Email:</strong> {athlete.email}
             </p>
@@ -59,10 +59,10 @@ const AthleteProfile = () => {
           </div>
 
           <div className="images-grid">
-          <FetchFiles 
-                getSpecificFiles={getAllFilesByAthlete}
-                id={athleteId}
-          />
+            <FetchFiles 
+                  getSpecificFiles={getAllFilesByAthlete}
+                  id={athleteId}
+            />
           </div>
         </>
       ) : (

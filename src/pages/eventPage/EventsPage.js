@@ -5,6 +5,8 @@ import { Toolbar } from '../../components';
 import { fetchAllEvents } from '../../service/event/event';
 import { Card, Button, Select } from "antd";
 import { useNavigate } from 'react-router-dom';
+import { noData } from '../../assets';
+import moment from 'moment';
 
 import './EventsPage.css';
 const { Option } = Select;
@@ -62,8 +64,8 @@ function EventsPage() {
 
 
   return (
-    <div className="events-page">
-      <h2>Événements</h2>
+    <div className="public-page-container">
+      <h2 className='title'>Événements</h2>
       <Toolbar 
         pageNumber={pageNumber}
         onPageNumberChange={onPageNumberChange}
@@ -86,27 +88,36 @@ function EventsPage() {
         )}
       </Select>
  */}
-      <div className="event-calendar">
       {events.length === 0 ? (
-        <p>there is no events to load yet !</p>
+        <div className="noData-container">
+          <img src={noData} className="noData" />
+        </div>
       ) : (
-        events.map((event, index) => (
+        <div className='card-container'>
+          {events.map((event, index) => (
           <Card
               key={index}
               hoverable
-              className="card"
-            >
-              <h3>{event.title}</h3>
-              <p>{event.date} - {event.location}</p>
-              <p>{event.type}</p>
-              <Button type="primary" onClick={() => handleSeeAllButtonClick(event.id)}>Lire plus</Button> 
-            </Card>
-        ))
+              
+          >
+            <div className='card-content'>
+              <h3 className='title'>{event.title}</h3>
+              <p > {moment(event.date).format('MMMM Do YYYY, h:mm a')} - {event.location}</p>
+              <p><strong>Category : </strong>{event.type}</p>
+              <Button 
+                type="primary" 
+                onClick={() => handleSeeAllButtonClick(event.id)}
+                style={{width:"200px"}}
+                >
+                  Lire plus
+                </Button> 
+            </div>
+          </Card>
+        ))}
+        </div>
       )
 
       }
-    </div>
-    
     </div>
   );
 }

@@ -93,7 +93,7 @@ const EventDetails = () => {
   }, [eventId]);
 
   return (
-    <div className="event-details-container">
+    <div className="public-details-container">
       <div className="event-header">
         <h3>{event.title}</h3>
         <h3>
@@ -183,7 +183,7 @@ const EventDetails = () => {
         )}
       </div>
 
-      <div className="event-images-container">
+      <div className="images-grid">
         <FetchFiles getSpecificFiles={getAllFilesByEvent} id={eventId} />
       </div>
     </div>

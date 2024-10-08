@@ -9,10 +9,11 @@ import {
   Input,
   Popconfirm,
   message,
-  Upload
+  Upload,
 } from "antd";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
+import moment from "moment";
 import {
   getAllCustomAthletes,
   updateAthlete,
@@ -21,23 +22,21 @@ import {
 import { uploadFile } from "../../../service/file/file.js";
 
 import "./athleteManagement.css";
-
+import { render } from "@testing-library/react";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
   });
-
-
 
 const AthleteManagement = () => {
   const [file, setFile] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
   const [previewVisible, setPreviewVisible] = useState(false);
-  const [isUploadingFile , setIsUploadingFile] = useState(false) ;
+  const [isUploadingFile, setIsUploadingFile] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const [sortedBy, setSortedBy] = useState("id");
   const [athletes, setAthletes] = useState([]);
@@ -57,73 +56,30 @@ const AthleteManagement = () => {
     "branch",
   ]);
   const [currentAthlete, setCurrentAthlete] = useState({
-    id: '',
-    firstname: '',
-    lastname: '',
-    email: '',
+    id: "",
+    firstname: "",
+    lastname: "",
+    email: "",
     enable: null,
-    createdAt: '',
-    phoneNumber: '',
-    licenceID: '',
+    createdAt: "",
+    phoneNumber: "",
+    licenceID: "",
     dateOfBirth: null,
     hasMedal: null,
-    branch: '',
+    branch: "",
   });
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  const handleFileChange = (info) => {
-    if (info.file.status === 'done') {
-      notification.success({
-        message: 'File uploaded successfully',
-      });
-    } else if (info.file.status === 'error') {
-      notification.error({
-        message: 'File upload failed',
-      });
+  const formatDateTime = (date) => {
+    // Check for valid date
+    const formattedDate = moment(date);
+    if (!formattedDate.isValid()) {
+      return "Invalid Date"; // Fallback in case of a parsing issue
     }
+
+    return formattedDate.format("MM/DD/YYYY HH:mm"); // Adjust the format as needed
   };
 
-  const onBeforeUpload = (file) => {
-    if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-        message.error(`${file.name} is not a png or jpeg file`);
-    }
-    return file.type === 'image/png' || file.type === 'image/jpeg' ? false : Upload.LIST_IGNORE;
-}
-
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-        file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewVisible(true);
-  };
-  
-  const handleUploadChange = (event) => {
-    const fileList = event.target.files[0]; 
-      setFile(fileList); 
-      console.log("fileList : ",fileList);
-      setPreviewImage(URL.createObjectURL(fileList)); // Create a preview URL
-    
-  };
-
-  const onCancelUploadModal = ()=>  {
-    setIsUploadingFile(false);
-    setFile(null);
-    setPreviewImage(null);
-  }
-
-  const handleUploadFile =  async () => {
-    console.log("file from handleUploadFile",file);
-    const formatData = new FormData();
-    formatData.append("file" , file)
-
-    const res = await uploadFile(formatData);
-    console.log("response from uploadFile :", res);
-
-    setFile(null);
-    setPreviewImage(null);
-    
-  };
 
   const columns = [
     { label: "ID", value: "id" },
@@ -131,7 +87,11 @@ const AthleteManagement = () => {
     { label: "Last Name", value: "lastname" },
     { label: "Email", value: "email" },
     { label: "Is Enabled", value: "enable" },
-    { label: "Created At", value: "createdAt" },
+    {
+      label: "Created At",
+      value: "createdAt",
+      render: (text) => formatDateTime(text),
+    },
     { label: "Phone Number", value: "phoneNumber" },
     { label: "Licence ID", value: "licenceID" },
     { label: "Date of Birth", value: "dateOfBirth" },
@@ -140,6 +100,7 @@ const AthleteManagement = () => {
     { label: "Branch", value: "branch" },
   ];
 
+  
   const tableColumns = [
     ...columns
       .filter((col) => selectedColumns.includes(col.value))
@@ -155,7 +116,10 @@ const AthleteManagement = () => {
       key: "actions",
       render: (_, record) => (
         <div className="icon-container">
-          <Button icon={<EyeOutlined />} onClick={() => handleViewDetails(record)} />
+          <Button
+            icon={<EyeOutlined />}
+            onClick={() => handleViewDetails(record)}
+          />
           <Button icon={<EditOutlined />} onClick={() => handleEdit(record)} />
           <Popconfirm
             title="Are you sure you want to delete this athlete?"
@@ -182,7 +146,6 @@ const AthleteManagement = () => {
   const handleViewDetails = (athlete) => {
     navigate(`/dashboard/athlete-details/${athlete.id}`);
   };
-
 
   //DELETE Athlete Process
   const handleDelete = async (id) => {
@@ -336,7 +299,7 @@ const AthleteManagement = () => {
             pagination={{ pageSize: 5 }}
             rowKey={(row) => row.id}
             scroll={{ x: "max-content" }}
-            style={{borderRadius:"10px"}}
+            style={{ borderRadius: "10px" }}
           />
         ) : (
           <p>there is no athletes yet !</p>
@@ -401,7 +364,6 @@ const AthleteManagement = () => {
           </Form.Item>
         </Form>
       </Modal>
-
     </>
   );
 };

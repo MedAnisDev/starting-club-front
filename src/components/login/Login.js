@@ -40,7 +40,10 @@ const Login = () => {
             localStorage.setItem('token', response.accessToken);
             localStorage.setItem('refreshToken', response.refreshToken);
             localStorage.setItem('user', JSON.stringify(response.userDTO));
-            notification.info("login success")
+            notification.success({
+                message: "Login Successful",
+                duration: 1.5,
+              });
             dispatch(AuthAction.login({
                 user : response.userDTO ,
                 token : response.accessToken ,

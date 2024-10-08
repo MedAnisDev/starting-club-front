@@ -1,5 +1,9 @@
-.admin-document-container{
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
+#admin-document-conatainer{
+    width: 80%;
 }
+
+#admin-document {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-gap: 5em;
+  }

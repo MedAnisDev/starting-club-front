@@ -4,7 +4,7 @@ import "./AboutPage.css";
 function AboutPage() {
   return (
     <div className="about-page">
-      <h2>À Propos du Club</h2>
+      <h2 className="title">À Propos du Club</h2>
       <section>
         <h3>Histoire</h3>
         <p>

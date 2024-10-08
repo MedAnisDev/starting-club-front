@@ -1,9 +1,14 @@
 import React from "react";
-import { Card, Button } from "antd";
+import { Card, Button, Modal } from "antd";
 import {fetchAllAnnouncements} from "../../service/announcement/announcement";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Toolbar } from "../../components";
+
+import { noData } from "../../assets";
+import moment from "moment"; 
+
+
 import "./announcementPage.css";
 function AnnouncementPage() {
 
@@ -12,6 +17,10 @@ function AnnouncementPage() {
   const [sortedBy , setSortedBy] = useState('createdAt') ;
   const [direction , setDirection] = useState('ASC') ;
   const isLoading = useSelector((state) => state.loader.state);
+
+  const [isReadingContent , setIsReadingContent] = useState(false) ;
+  const [selectedContent , setSelectedContent] = useState('') ;
+
 
   //defining announcement columns
   const columns = [
@@ -38,6 +47,15 @@ function AnnouncementPage() {
     setDirection(value);
   }
 
+  const showModal = (currentContent)=> {
+    setIsReadingContent(true);
+    setSelectedContent(currentContent);
+  }
+  const hideModal = ()=> {
+    setIsReadingContent(false);
+    setSelectedContent('');
+  }
+
   useEffect(() => {
     console.log("sortedBy selected : ", sortedBy);
     console.log("pageNumber selected : ", pageNumber);
@@ -47,8 +65,8 @@ function AnnouncementPage() {
   if (isLoading) return <p>Loading ...</p>;
 
   return (
-    <div className="news-page">
-      <h2 className="page-title">Announcements</h2>
+    <div className="public-page-container">
+      <h2 className="title">Actualités</h2>
       <Toolbar 
         pageNumber={pageNumber}
         onPageNumberChange={onPageNumberChange}
@@ -56,34 +74,42 @@ function AnnouncementPage() {
         onSortedByChange={onSortedByChange}
         columns={columns}
       />
-      <div className="announcement-cards-container">
+
+      <div className="card-container" >
         
         {announcements.length === 0 ? (
-          <p> there is no announcements yet to load !</p>
+          <div className="noData-container">
+            <img src={noData} className="noData" />
+          </div>
         ) : (
           announcements.map((announcement, index) => (
             <Card
               key={index}
               hoverable
-              className="announcement-card"
-              cover={
-                <img
-                  alt={announcement.title}
-                  src={announcement.image}
-                  className="announcement-image"
-                />
-              }
             >
-              <h3>{announcement.title}</h3>
-              <p className="announcement-date">{announcement.date}</p>
-              <p className="announcement-description">
-                {announcement.description}
+              <h3 className="title">{announcement.title}</h3>
+              <p 
+              className="card-description ellipsis-tooltip" 
+              onClick={()=>showModal(announcement.content)}
+              >
+                <div>{announcement.content}</div>
+              </p>             
+
+              <p className="card-description no-wrap">
+                <strong>Publié</strong>: {moment(announcement.createdAt).format('MMMM Do YYYY, h:mm a')}
               </p>
-              <Button type="primary">Lire plus</Button>
             </Card>
           ))
         )}
       </div>
+      <Modal
+        title="contenu d'annonce :"
+        open={isReadingContent}
+        onOk={()=>hideModal()}
+        onCancel={()=>hideModal()}
+      >
+        <p className="modal-text-content">{selectedContent}</p>
+      </Modal>
     </div>
   );
 

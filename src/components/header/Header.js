@@ -5,6 +5,8 @@ import { useSelector , useDispatch } from "react-redux";
 
 import { AuthAction } from '../../redux/actions';
 import { logoutService } from '../../service/auth/Auth';
+import { InfoCircleOutlined } from "@ant-design/icons";
+
 import "./Header.css";
 
 function Header() {
@@ -24,23 +26,28 @@ function Header() {
     // back-end request
     const token  =localStorage.getItem('token');
 
-    logoutService(token).then((resp)=> {
-      console.log("backend response -> ",resp.message);
+    try{
+      logoutService(token);      
+      notification.info({
+        message: "Logout Successful",
+        description: "You have been successfully logged out.",
+        placement: "topRight",
+        duration: 5, // Reduced the duration to 5 seconds (adjust as necessary)
+        style: {
+          width: 300,
+          borderRadius: "10px",
+        },
+      });
+      //clearing localStorage
+      localStorage.removeItem('user');
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
       
-      notification.info(resp.message)
-    })
-    .catch((err) => {
+      dispatch(AuthAction.logout());
+      navigate('/');
+    }catch(err) {
       console.log(err);
-    }) ;
-   
-
-    //clearing localStorage
-    localStorage.removeItem('user');
-    localStorage.removeItem("token");
-    localStorage.removeItem("refreshToken");
-    dispatch(AuthAction.logout());
-
-    navigate('/');
+    };
   };
 
   
@@ -63,7 +70,6 @@ function Header() {
                 <li><Link className='navlinks' to='/news'>Actualité</Link></li>
                 <li><Link className='navlinks' to='/events'>Événements</Link></li>
                 <li><Link className='navlinks' to='/gallery'>Galerie</Link></li>
-                <li><Link className='navlinks' to='/membership'>Adhésion</Link></li>
                 <li><Link className='navlinks' to='/blog'>Blog</Link></li>
                 {(userRole === "ROLE_SUPER_ADMIN" || userRole === "ROLE_ADMIN") && (
                   <li><Link className='navlinks' to='/dashboard/*'>Admin Dashboard</Link></li>
