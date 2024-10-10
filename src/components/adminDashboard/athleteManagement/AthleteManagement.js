@@ -19,10 +19,7 @@ import {
   updateAthlete,
   deleteAthleteById,
 } from "../../../service/athlete/athlete";
-import { uploadFile } from "../../../service/file/file.js";
-
 import "./athleteManagement.css";
-import { render } from "@testing-library/react";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {

@@ -45,17 +45,11 @@ function Header() {
       localStorage.removeItem("refreshToken");
       
       dispatch(AuthAction.logout());
-      navigate('/');
+      navigate('/home');
     }catch(err) {
       console.log(err);
     };
   };
-
-  const onLogoClick =()=> {
-    navigate('/home')
-  }
-
-  
 
   return (
     <div className="header">

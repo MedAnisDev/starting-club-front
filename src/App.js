@@ -39,7 +39,7 @@ const ConditionalFooter = () => {
   const location = useLocation();
 
   return (
-    !location.pathname.startsWith('/dashboard') && (
+    location.pathname.startsWith('/home') && (
       <footer className="footer">
         <Footer />
       </footer>
@@ -96,7 +96,8 @@ const App = () => {
             />
             <Route path="/dashboard/athlete-details/:athleteId" element={<AthleteDetailsDashboard />} />
             <Route path="/dashboard/event-details/:eventId" element={<EventDetailsDashboard />} />
-            {/* route for non authenticated users */}
+            
+            {/* Home route  */}
             <Route
               path="/home"
               element={<HomePage />}

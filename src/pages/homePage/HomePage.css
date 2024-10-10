@@ -1,40 +1,55 @@
 .home-page {
   padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center all the content horizontally */
 }
 
 .club-logo {
   text-align: center;
   margin-bottom: 20px;
+  margin-right: 120px;
 }
 
 .club-logo img {
-  width: 260px;
-  transition: transform 0.5s ease;
+  width: 250px;
+  transition: transform 0.5s ease-in-out;
+  display: block;
+  margin: 0 auto; /* Center the logo */
 }
 
 .logo-hover:hover {
-  transform: scale(1.1);
+  transform: scale(1.5);
 }
 
 .club-description {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
   margin-bottom: 40px;
+  max-width: 800px; /* Limit the width to prevent content from stretching too far */
+  margin: 0 auto; /* Center the description */
+  text-decoration: dotted;
 }
 
 .club-description h2 {
+  
   font-size: 32px;
   color: #333;
   margin-bottom: 20px;
 }
 
 .animated-description {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 18px;
   color: #666;
   line-height: 1.6;
+  margin: 0 auto; /* Center the text */
 }
 
 .club-carousel {
-  margin: 40px 0;
+  margin: 50px 0;
+  max-width: 800px; 
+  text-align: center;
 }
 
 .carousel-image {
@@ -44,21 +59,24 @@
   border-radius: 10px;
 }
 
+/* Keep the partner logos section as-is */
 .partners-section {
+  display: flex;
+  flex-direction: column;
+
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 150px; 
+  height: 150px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 .partners-logos {
   display: flex;
-  gap: 50px; 
-  animation: scroll 7s linear infinite;
+  gap: 50px;
+  animation: scroll 4s linear infinite;
 }
 
 .partner-logo {
@@ -68,10 +86,10 @@
 
 @keyframes scroll {
   0% {
-    transform: translateX(-300px);
+    transform: translateX(-10rem);
   }
   100% {
-    transform: translateX(300px);
+    transform: translateX(10rem);
   }
 }
 
@@ -80,50 +98,12 @@
 }
 
 .quick-overview h2 {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
   font-size: 28px;
   margin-bottom: 20px;
 }
 
-/* Overview Cards Layout */
-.overview-cards {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.overview-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 300px; /* Fixed width for consistent card sizes */
-}
-
-.overview-card h3 {
-  font-size: 20px;
-  color: #ff6b6b;
-  margin-bottom: 10px;
-}
-
-.overview-card ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.overview-card ul li {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-/* Ant Design Card Custom Styles */
-.ant-card {
-  border-radius: 10px; /* Match overview cards */
-  transition: transform 0.3s;
-}
-
-.ant-card:hover {
-  transform: translateY(-5px); /* Slight lift effect on hover */
+.map-container{
+  margin-bottom: 2rem;
 }
