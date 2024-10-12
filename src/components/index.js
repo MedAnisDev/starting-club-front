@@ -10,7 +10,9 @@ export {default as Login} from  "./login/Login.js";
 export {default as Signup} from  "./signup/Signup.js";
 export {default as Dashboard} from "../pages/admin/DashboardPage.js";
 
-export {default as AdminRoute} from "./adminRoute/adminRoute.js" ;
+export {default as AdminRoute} from "./Routes/adminRoute.js" ;
+export {default as AthleteRoute} from "./Routes/athleteRoute.js" ;
+
 export {default as PublicRoute} from "./publicRoute/publicRoute.js" ;
 export {default as Toolbar} from "./toolbar/Toolbar.js" ; 
 export {default as EventDetails} from "./eventDetails/eventDetails.js";

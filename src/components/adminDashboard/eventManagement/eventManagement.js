@@ -290,7 +290,7 @@ const EventManagement = () => {
   // Use Effect
   useEffect(() => {
     fetchAllEventsData(pageNumber, sortedBy, selectedType);
-  }, [pageNumber, sortedBy ,selectedType]);
+  }, [pageNumber, sortedBy ,selectedType , events.length]);
 
   return (
     <div className="event-container">

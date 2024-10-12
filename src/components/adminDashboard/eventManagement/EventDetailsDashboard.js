@@ -213,6 +213,16 @@ const EventDetailsDashboard = () => {
           description: response,
           placement: "topRight",
         });
+        setParticipantsEventPerformance(
+          participantsEventPerformance.map((item)=>
+            item.athleteDTO.id === participantId ?{
+              athleteDTO: {
+                id: participantId,
+              },
+              noteEvent:noteEvent
+            }:item
+          )
+        );
         setIsAddingNote(false);
 
       }catch(err){
@@ -366,7 +376,7 @@ const EventDetailsDashboard = () => {
       fetchEventData(eventId);
       fetchAllAthleteNoteData(eventId);
       getAllParticipantsData(eventId);
-    }, [eventId]);
+    }, [eventId , registeredAthletes.length , participantsEventPerformance]);
 
   return (
     <div className="event-details-dashboard-container">

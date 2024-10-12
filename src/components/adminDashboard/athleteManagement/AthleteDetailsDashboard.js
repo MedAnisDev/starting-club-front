@@ -68,6 +68,17 @@ const AthleteDetailsDashboard = () => {
   });
 
   //trainingSession
+  const [trainingSessionList , setTrainingSessionList]= useState([
+    {
+      id: "",
+      sessionNote: "",
+      date: "",
+      createdAt: "",
+      updatedAt: "",
+      createdBy: "",
+      updatedBy: "",
+    }
+  ])
   const [currentSession, setCurrentSession] = useState({
     id: "",
     sessionNote: "",
@@ -119,7 +130,6 @@ const AthleteDetailsDashboard = () => {
       setPerformance(response);
       setIsAddingPerformance(false);
       setIsPerformanceExists(true);
-      setReloadFlag(!reloadFlag);
     } catch (err) {
       console.log("error of create Performance : ", err);
     }
@@ -133,15 +143,18 @@ const AthleteDetailsDashboard = () => {
     handleEditPerformance(performance.id, jsonPerformance);
   };
 
-  const handleEditPerformance = (performance, jsonPerformance) => {
+  const handleEditPerformance = (performanceId, jsonPerformance) => {
     try {
-      const response = updatePerformance(performance, jsonPerformance);
+      const response = updatePerformance(performanceId, jsonPerformance);
       console.log("response of edit Performance :", response);
-      setPerformance(response);
+      setPerformance({ 
+        ...performance,       
+        federationNote: jsonPerformance.federationNote  
+      }) ;
       setIsAddingPerformance(false);
       setIsEditinPerformance(false);
       setIsPerformanceExists(true);
-      setReloadFlag(!reloadFlag);
+      
     } catch (err) {
       console.log("error of edit Performance : ", err);
     }
@@ -161,6 +174,7 @@ const AthleteDetailsDashboard = () => {
         updatedBy: response.updatedBy,
         trainingSessionList: response.trainingSessionList,
       });
+      setTrainingSessionList(response.trainingSessionList);
     } catch (err) {
       console.log("getPerformanceByAthleteIdData error ", err);
     }
@@ -258,9 +272,23 @@ const AthleteDetailsDashboard = () => {
         jsonTrainingSession
       );
       console.log("response of create TrainingSession :", response);
+
+      setTrainingSessionList([
+        ...trainingSessionList ,
+        {
+          id: response.id,
+          sessionNote: response.sessionNote,
+          date: response.date,
+          createdAt: response.createdAt,
+          updatedAt: response.updatedAt,
+          createdBy: response.createdBy,
+          updatedBy: response.updatedBy,
+        }
+        ])
+
       setCurrentSession(response);
       setIsAddingTrainingSession(false);
-      setReloadFlag(!reloadFlag);
+      
     } catch (err) {
       console.log("error of create Performance : ", err);
     }
@@ -311,7 +339,7 @@ const AthleteDetailsDashboard = () => {
       console.log("response of edit Training Session :", response);
       setCurrentSession(response);
       setIsEditingSessionModal(false);
-      setReloadFlag(!reloadFlag);
+      
     } catch (err) {
       console.log("error of edit Training Session : ", err);
     }
@@ -326,7 +354,7 @@ const AthleteDetailsDashboard = () => {
         description: response,
         placement: "topRight",
       });
-      setReloadFlag(!reloadFlag);
+      
     } catch (err) {
       console.log("error handle Delete Session   : ", err);
     }
@@ -355,7 +383,7 @@ const AthleteDetailsDashboard = () => {
   useEffect(() => {
     getAthleteByIdData(athleteId);
     getPerformanceByAthleteIdData(athleteId);
-  }, [athleteId, reloadFlag]);
+  }, [athleteId , trainingSessionList.length]);
 
   return (
     <>
@@ -406,31 +434,31 @@ const AthleteDetailsDashboard = () => {
                   <div className="athlete-details">
                     <h2>Performance Details :</h2>
                     <p>
-                      <strong>Federation Note:</strong>{" "}
+                      <strong>Federation Note: </strong>
                       {performance.federationNote || "N/A"}
                     </p>
                     <p>
-                      <strong>Created At:</strong>{" "}
+                      <strong>Created At: </strong>
                       {performance.createdAT
                         ? formatDateTime(performance.createdAT)
                         : "N/A"}
                     </p>
                     <p>
-                      <strong>Updated At:</strong>{" "}
+                      <strong>Updated At: </strong>
                       {performance.updatedAT
                         ? formatDateTime(performance.updatedAT)
                         : "N/A"}
                     </p>
 
                     <p>
-                      <strong>Created By:</strong>{" "}
+                      <strong>Created By: </strong>
                       {performance.createdBy
                         ? `${performance.createdBy?.firstname} ${performance.createdBy?.lastname}`
                         : "Unknown"}
                     </p>
 
                     <p>
-                      <strong>Updated By:</strong>{" "}
+                      <strong>Updated By: </strong>
                       {performance.updatedBy
                         ? `${performance.updatedBy.firstname} ${performance.updatedBy.lastname}`
                         : "Not Updated Yet"}

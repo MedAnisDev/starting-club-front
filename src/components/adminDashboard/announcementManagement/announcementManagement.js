@@ -207,7 +207,7 @@ const AnnouncementManagement = () => {
     useEffect(()=> {
         console.log("pagination. current: ",pagination.current); 
         handleFetchAllAnnouncementData(pagination.current , sortedBy); 
-    },[pagination.current , sortedBy]);
+    },[pagination.current , sortedBy ,announcements.length]);
 
     return (
         <div className="crud-wrapper">
