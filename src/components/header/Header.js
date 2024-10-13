@@ -45,7 +45,7 @@ function Header() {
       localStorage.removeItem("refreshToken");
       
       dispatch(AuthAction.logout());
-      navigate('/home');
+      navigate('/');
     }catch(err) {
       console.log(err);
     };
@@ -61,10 +61,10 @@ function Header() {
         <nav>
           <ul>
             {!isAuthenticated ? (
-              <li><Link className='navlinks' to='/home'>Home</Link></li>
+              <li><Link className='navlinks' to='/'>Home</Link></li>
             ) : (
               <>
-                <li><Link className='navlinks' to='/home'>Home</Link></li>
+                <li><Link className='navlinks' to='/'>Home</Link></li>
                 <li><Link className='navlinks' to='/about'>À Propos</Link></li>
                 <li><Link className='navlinks' to='/president-message'>Mot du Président</Link></li>
                 <li><Link className='navlinks' to='/athletes'>Athlètes</Link></li>

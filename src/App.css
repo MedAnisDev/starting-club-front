@@ -62,16 +62,7 @@ body {
   background-color: var(--background-color-main)
 
 }
-.footer {
-  padding: 20px;  
-  text-align: center;
-  font-size: 14px;  
-  box-shadow:0px -5px 15px rgba(0, 0, 0, 0.1);   /* Slight shadow at the top */
 
-  background-color: var(--background-color);
-  display: flex;
-  flex-direction: column;
-}
 
 /*
 .ant-btn-primary {

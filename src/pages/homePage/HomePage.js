@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { Card, Col, Row } from 'antd';  // Import Ant Design components
 
+import { Footer } from '../../components/index.js';
 function HomePage() {
   const [scrolling, setScrolling] = useState(false);
 
@@ -41,6 +42,7 @@ function HomePage() {
   };
 
   return (
+    <>
     <div className={`home-page ${scrolling ? 'scroll-blur blur' : 'scroll-blur'}`}>
       {/* Club Logo */}
       <div className="club-logo">
@@ -124,6 +126,10 @@ function HomePage() {
         </div>
       </section>
     </div>
+     <div className='footer'>
+      <Footer/>
+     </div>
+     </>
   );
 }
 

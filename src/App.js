@@ -10,8 +10,6 @@ import {
   AthletePage,
   EventsPage,
   GalleryPage,
-  PartnersPage,
-  ContactPage,
   AnnouncementPage,
 } from "./pages/index";
 import {
@@ -22,32 +20,18 @@ import {
   AthleteRoute,
   EventDetails,
   AthleteProfile,
-  Footer,
+  Chat,
 } from "./components/index";
 
 import store from "./redux/store";
 
-import { Chat } from "./components/chat/chat.js";
 
-import "./App.css";
 import { Provider } from "react-redux";
-import { useLocation } from "react-router-dom";
 
 import DashboardPage from "./pages/admin/DashboardPage";
 import AthleteDetailsDashboard from "./components/adminDashboard/athleteManagement/AthleteDetailsDashboard.js";
 import EventDetailsDashboard from "./components/adminDashboard/eventManagement/EventDetailsDashboard.js";
-
-const ConditionalFooter = () => {
-  const location = useLocation();
-
-  return (
-    location.pathname.startsWith("/home") && (
-      <footer className="footer">
-        <Footer />
-      </footer>
-    )
-  );
-};
+import "./App.css";
 
 const App = () => {
   return (
@@ -140,14 +124,6 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="/partners"
-                  element={
-                    <AthleteRoute>
-                      <PartnersPage />
-                    </AthleteRoute>
-                  }
-                />
-                <Route
                   path="/blog"
                   element={
                     <AthleteRoute>
@@ -183,10 +159,10 @@ const App = () => {
                 />
 
                 {/* Home route  */}
-                <Route path="/home" element={<HomePage />} />
+                <Route path="/" element={<HomePage />} />
               </Routes>
             </div>
-            <ConditionalFooter />
+
           </Router>
         </Provider>
       </div>

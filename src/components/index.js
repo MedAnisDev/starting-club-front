@@ -18,3 +18,4 @@ export {default as Toolbar} from "./toolbar/Toolbar.js" ;
 export {default as EventDetails} from "./eventDetails/eventDetails.js";
 export {default as UploadCustomFile} from "./fileHandle/uploadCustomFile.js";
 export {default as FetchFiles} from "./fileHandle/fetchFiles.js";
+export {default as Chat} from "./chat/chat.js";

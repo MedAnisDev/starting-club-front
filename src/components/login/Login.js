@@ -49,7 +49,7 @@ const Login = () => {
                 token : response.accessToken ,
                 refreshToken : response.refreshToken 
             }));
-            navigate('/home');
+            navigate('/');
         })
             .catch((err) => {
                 console.log(err);
