@@ -13,8 +13,6 @@ const Chat = () => {
   const username = useSelector(
     (state) => state.auth.user?.firstname + " " + state.auth.user?.lastname
   ); 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated) ;
-
 
   //styles
   const sendButtonStyles = {

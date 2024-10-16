@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import './GalleryPage.css';
-import { bechir, affiche, ppl } from "../../assets/index";
+import {affiche, ppl } from "../../assets/index";
 
 function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -18,8 +18,8 @@ function GalleryPage() {
     <div className="public-page-container">
       <h2 className='title'>Galerie</h2>
       <div className="gallery">
-        <figure className='gallery__thumb' onClick={() => handleImageClick(bechir)}>
-          <img src={bechir} alt="Galerie 1" />
+        <figure className='gallery__thumb' onClick={() => handleImageClick(affiche)}>
+          <img src={affiche} alt="Galerie 1" />
           <figcaption className='gallery__caption'>Portrait by Mari Lezhava</figcaption>
         </figure>
         <figure className='gallery__thumb' onClick={() => handleImageClick(ppl)}>
